@@ -1,0 +1,7 @@
+{
+  "name": "MINI-MARKET",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
