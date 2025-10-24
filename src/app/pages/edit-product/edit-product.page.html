@@ -1,0 +1,99 @@
+<ion-header>
+  <ion-toolbar color="primary" class="edit-toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home" class="back-button"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="toolbar-title">Modifier le produit</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="edit-content">
+  <div class="form-container">
+    <form (ngSubmit)="updateProduct()" #editProductForm="ngForm" novalidate class="edit-form">
+
+      <!-- Image Preview améliorée -->
+      <div class="image-section">
+        <div class="image-preview">
+          <img *ngIf="previewUrl || product?.imageUrl"
+              
+               alt="Aperçu de l'image"
+               class="preview-img" />
+          <div *ngIf="!previewUrl && !product?.imageUrl" class="no-image">
+    
+            <span class="no-image-text">Aucune image</span>
+          </div>
+        </div>
+
+        <ion-item lines="none" class="file-upload-item">
+          <ion-label position="stacked" class="upload-label">Image du produit</ion-label>
+          <input type="file" 
+                 (change)="onFileSelected($event)" 
+                 accept="image/*"
+                 class="file-input">
+        </ion-item>
+      </div>
+
+      <!-- Formulaire amélioré -->
+      <div class="form-fields">
+        <ion-item lines="full" class="form-item">
+          <ion-label position="stacked" class="input-label">Nom du produit</ion-label>
+          <ion-input 
+            [(ngModel)]="product.name" 
+            name="name" 
+            required
+            class="custom-input">
+          </ion-input>
+        
+        </ion-item>
+
+        <ion-item lines="full" class="form-item">
+          <ion-label position="stacked" class="input-label">Prix (€)</ion-label>
+          <ion-input 
+            type="number" 
+            [(ngModel)]="product.price" 
+            name="price" 
+            required
+            class="custom-input">
+          </ion-input>
+
+        </ion-item>
+
+        <ion-item lines="full" class="form-item">
+          <ion-label position="stacked" class="input-label">Catégorie</ion-label>
+          <ion-select 
+            [(ngModel)]="product.category" 
+            name="category" 
+            interface="popover"
+            class="custom-select">
+            <ion-select-option value="Électronique">Électronique</ion-select-option>
+            <ion-select-option value="Vêtements">Vêtements</ion-select-option>
+            <ion-select-option value="Maison">Maison</ion-select-option>
+            <ion-select-option value="Autres">Autres</ion-select-option>
+          </ion-select>
+         
+        </ion-item>
+
+        <ion-item lines="full" class="form-item">
+          <ion-label position="stacked" class="input-label">Description</ion-label>
+          <ion-textarea 
+            [(ngModel)]="product.description" 
+            name="description"
+            rows="4"
+            class="custom-textarea">
+          </ion-textarea>
+        
+        </ion-item>
+      </div>
+
+      <!-- Bouton amélioré -->
+      <ion-button 
+        expand="block" 
+        type="submit" 
+        color="success" 
+        class="submit-button">
+       
+        Mettre à jour le produit
+      </ion-button>
+    </form>
+  </div>
+</ion-content>

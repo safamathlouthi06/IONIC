@@ -1,0 +1,84 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>Connexion</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="login-container">
+    <!-- Illustration ou logo -->
+    <div class="logo-section">
+      <div class="logo-circle">
+        <ion-icon name="person-circle-outline"></ion-icon>
+      </div>
+      <h2>Bienvenue</h2>
+      <p>Connectez-vous à votre compte</p>
+    </div>
+
+    <!-- Formulaire de connexion -->
+    <form [formGroup]="loginForm" (ngSubmit)="login()" class="login-form">
+      <!-- Champ Email -->
+      <ion-item lines="full" class="form-item">
+        <ion-label position="stacked">Email</ion-label>
+        <ion-input 
+          type="email" 
+          formControlName="email"
+          placeholder="Votre adresse email"
+          class="custom-input">
+        </ion-input>
+        <ion-icon name="mail-outline" slot="start"></ion-icon>
+      </ion-item>
+
+      <!-- Champ Mot de passe -->
+      <ion-item lines="full" class="form-item">
+        <ion-label position="stacked">Mot de passe</ion-label>
+        <ion-input 
+          type="password" 
+          formControlName="password"
+          placeholder="Votre mot de passe"
+          class="custom-input">
+        </ion-input>
+        <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+      </ion-item>
+
+      <!-- Lien mot de passe oublié -->
+      <div class="forgot-password">
+        <a href="#" class="forgot-link">Mot de passe oublié ?</a>
+      </div>
+
+      <!-- Bouton de connexion -->
+      <ion-button 
+        expand="block" 
+        type="submit" 
+        class="login-button"
+        [disabled]="!loginForm.valid">
+        Se connecter
+      </ion-button>
+    </form>
+
+    <!-- Séparateur -->
+    <div class="separator">
+      <span>Ou</span>
+    </div>
+
+    <!-- Options de connexion alternatives -->
+    <div class="social-login">
+      <ion-button expand="block" fill="outline" class="google-button">
+        <ion-icon slot="start" name="logo-google"></ion-icon>
+        Continuer avec Google
+      </ion-button>
+      
+      <ion-button expand="block" fill="outline" class="facebook-button">
+        <ion-icon slot="start" name="logo-facebook"></ion-icon>
+        Continuer avec Facebook
+      </ion-button>
+    </div>
+
+    <!-- Lien d'inscription -->
+    <div class="register-section">
+      <p>Pas encore inscrit ? 
+        <a routerLink="/register" class="register-link">Créer un compte</a>
+      </p>
+    </div>
+  </div>
+</ion-content>

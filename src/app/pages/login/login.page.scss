@@ -1,0 +1,155 @@
+.login-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding-top: 2rem;
+}
+
+.logo-section {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  
+  .logo-circle {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1rem;
+    background: var(--ion-color-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    ion-icon {
+      font-size: 3rem;
+      color: white;
+    }
+  }
+  
+  h2 {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--ion-color-dark);
+  }
+  
+  p {
+    color: var(--ion-color-medium);
+    margin: 0;
+  }
+}
+
+.login-form {
+  margin-bottom: 1.5rem;
+}
+
+.form-item {
+  --padding-start: 0;
+  --inner-padding-end: 0;
+  margin-bottom: 1.5rem;
+  
+  ion-label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  
+  ion-icon {
+    color: var(--ion-color-medium);
+    margin-right: 0.75rem;
+  }
+}
+
+.custom-input {
+  --padding-start: 0.75rem !important;
+  border-radius: 8px;
+  border: 1px solid var(--ion-color-light-shade);
+  margin-top: 0.5rem;
+}
+
+.forgot-password {
+  text-align: right;
+  margin-bottom: 1.5rem;
+  
+  .forgot-link {
+    color: var(--ion-color-primary);
+    text-decoration: none;
+    font-size: 0.9rem;
+  }
+}
+
+.login-button {
+  --border-radius: 8px;
+  height: 48px;
+  font-weight: 600;
+  margin-top: 1rem;
+}
+
+.separator {
+  display: flex;
+  align-items: center;
+  margin: 2rem 0;
+  
+  &::before,
+  &::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid var(--ion-color-light-shade);
+  }
+  
+  span {
+    padding: 0 1rem;
+    color: var(--ion-color-medium);
+    font-size: 0.9rem;
+  }
+}
+
+.social-login {
+  margin-bottom: 2rem;
+  
+  ion-button {
+    height: 48px;
+    --border-radius: 8px;
+    margin-bottom: 0.75rem;
+    
+    &.google-button {
+      --border-color: #DB4437;
+      --color: #DB4437;
+    }
+    
+    &.facebook-button {
+      --border-color: #4267B2;
+      --color: #4267B2;
+    }
+  }
+}
+
+.register-section {
+  text-align: center;
+  
+  p {
+    color: var(--ion-color-medium);
+  }
+  
+  .register-link {
+    color: var(--ion-color-primary);
+    font-weight: 500;
+    text-decoration: none;
+  }
+}
+
+/* Animation pour les champs de formulaire */
+.form-item {
+  transition: transform 0.2s ease;
+  
+  &:focus-within {
+    transform: translateY(-2px);
+  }
+}
+
+/* Responsive */
+@media (max-height: 700px) {
+  .login-container {
+    padding-top: 1rem;
+  }
+  
+  .logo-section {
+    margin-bottom: 1.5rem;
+  }
+}

@@ -1,0 +1,244 @@
+<ion-header>
+  <ion-toolbar color="primary" class="merchant-toolbar">
+    <ion-title class="toolbar-title">Dashboard Commerçant</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()" fill="clear" color="light" class="logout-btn">
+        <ion-icon name="log-out-outline" slot="start"></ion-icon>
+        <span class="logout-text">Déconnexion</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="merchant-content">
+  <!-- Section bienvenue améliorée -->
+  <div class="welcome-section">
+    <div class="welcome-content">
+      <div class="avatar-container">
+        <ion-avatar class="user-avatar">
+          <div class="avatar-background">
+            <ion-icon name="business-outline" class="avatar-icon"></ion-icon>
+          </div>
+        </ion-avatar>
+        <div class="status-indicator"></div>
+      </div>
+      <div class="welcome-text">
+        <h2 class="welcome-title">Bienvenue ! 👋</h2>
+        <p class="welcome-subtitle">Gérez votre boutique en toute simplicité</p>
+      </div>
+    </div>
+    <ion-badge color="success" class="products-count-badge">
+      <ion-icon name="cube" slot="start"></ion-icon>
+      {{ filterProducts().length }} produit(s)
+    </ion-badge>
+  </div>
+
+  <!-- Section filtres améliorée -->
+  <div class="filters-section">
+    <div class="search-container">
+      <ion-searchbar 
+        [(ngModel)]="searchTerm" 
+        placeholder="Rechercher un produit..."
+        class="custom-searchbar"
+        animated
+        debounce="300">
+      </ion-searchbar>
+    </div>
+
+    <div class="categories-container">
+      <div class="categories-scroll">
+        <ion-chip 
+          *ngFor="let cat of categories" 
+          [class.active]="selectedCategory === cat"
+          (click)="selectedCategory = cat"
+          class="category-chip">
+          <ion-icon [name]="getCategoryIcon(cat)" slot="start" class="chip-icon"></ion-icon>
+          <ion-label class="chip-label">{{ cat }}</ion-label>
+        </ion-chip>
+        <ion-chip 
+          [class.active]="selectedCategory === 'All'"
+          (click)="selectedCategory = 'All'"
+          class="category-chip all">
+          <ion-icon name="apps-outline" slot="start" class="chip-icon"></ion-icon>
+          <ion-label class="chip-label">Tous</ion-label>
+        </ion-chip>
+      </div>
+    </div>
+  </div>
+
+  <!-- En-tête produits amélioré -->
+  <div class="section-header">
+    <div class="header-content">
+      <div class="title-container">
+        <ion-icon name="cube" class="section-icon"></ion-icon>
+        <h3 class="section-title">Mes Produits</h3>
+      </div>
+      <ion-button fill="solid" color="primary" size="small" (click)="goToAddProduct()" class="add-btn">
+        <ion-icon name="add-circle" slot="start"></ion-icon>
+        Nouveau
+      </ion-button>
+    </div>
+  </div>
+
+  <!-- Grille produits améliorée -->
+  <div class="products-grid">
+    <ion-card *ngFor="let product of filterProducts()" class="product-card">
+      <div class="product-image-container">
+        <img 
+          [src]="product.imageUrl" 
+          *ngIf="product.imageUrl" 
+          class="product-image"
+          (error)="handleImageError($event)">
+        <div class="image-overlay" *ngIf="!product.imageUrl">
+          <ion-icon name="image-outline" class="placeholder-icon"></ion-icon>
+          <p class="placeholder-text">Aucune image</p>
+        </div>
+        <div class="product-badge">
+          <ion-icon [name]="getCategoryIcon(product.category)" class="badge-icon"></ion-icon>
+          {{ product.category }}
+        </div>
+        <div class="card-overlay">
+          <ion-button fill="clear" color="light" size="small" (click)="viewProduct(product)" class="overlay-btn">
+            <ion-icon name="eye-outline"></ion-icon>
+          </ion-button>
+        </div>
+      </div>
+      
+      <ion-card-header class="product-header">
+        <ion-card-title class="product-name">{{ product.name }}</ion-card-title>
+        <ion-card-subtitle class="product-price">{{ product.price | currency:'EUR' }}</ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content class="product-content">
+        <p class="product-description" *ngIf="product.description">
+          {{ (product.description.length > 100) ? (product.description | slice:0:100) + '...' : product.description }}
+        </p>
+        
+        <div class="product-actions">
+          <ion-button fill="outline" color="medium" size="small" (click)="viewProduct(product)" class="action-btn">
+            <ion-icon name="eye-outline" slot="start"></ion-icon>
+            Détails
+          </ion-button>
+          <div class="action-buttons">
+            <ion-button fill="clear" color="warning" size="small" (click)="editProduct(product)" class="icon-btn">
+              <ion-icon name="create-outline"></ion-icon>
+            </ion-button>
+            <ion-button fill="clear" color="danger" size="small" (click)="deleteProduct(product)" class="icon-btn">
+              <ion-icon name="trash-outline"></ion-icon>
+            </ion-button>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- État vide amélioré -->
+  <div *ngIf="filterProducts().length === 0" class="empty-state">
+    <div class="empty-content">
+      <div class="empty-icon-container">
+        <ion-icon name="cube-outline" class="empty-icon"></ion-icon>
+      </div>
+      <h3 class="empty-title">Aucun produit trouvé</h3>
+      <p class="empty-subtitle">
+        {{ searchTerm || selectedCategory !== 'All' ? 
+           'Aucun produit ne correspond à vos critères de recherche' : 
+           'Créez votre premier produit pour commencer' }}
+      </p>
+      <ion-button color="primary" (click)="goToAddProduct()" class="empty-action-btn">
+        <ion-icon name="add" slot="start"></ion-icon>
+        Ajouter un produit
+      </ion-button>
+    </div>
+  </div>
+
+  <!-- Bouton flottant amélioré -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="main-fab">
+    <ion-fab-button color="primary" (click)="goToAddProduct()" class="fab-btn">
+      <ion-icon name="add" class="fab-icon"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <!-- Modal produit amélioré -->
+  <ion-modal [isOpen]="showProductModal" (ionModalDidDismiss)="closeModal()" class="product-modal">
+    <ng-template>
+      <ion-header class="modal-header">
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="closeModal()" fill="clear" class="back-btn">
+              <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
+              Retour
+            </ion-button>
+          </ion-buttons>
+          <ion-title class="modal-title">Détails du produit</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="modal-content">
+        <div class="modal-product" *ngIf="selectedProduct">
+          <div class="modal-image-container">
+            <img 
+              [src]="selectedProduct.imageUrl" 
+              *ngIf="selectedProduct.imageUrl" 
+              class="modal-image"
+              (error)="handleImageError($event)">
+            <div class="no-image" *ngIf="!selectedProduct.imageUrl">
+              <ion-icon name="image-outline" class="no-image-icon"></ion-icon>
+              <p class="no-image-text">Aucune image disponible</p>
+            </div>
+          </div>
+          
+          <div class="modal-info">
+            <div class="modal-header-content">
+              <h2 class="modal-product-name">{{ selectedProduct.name }}</h2>
+              <div class="price-tag">
+                {{ selectedProduct.price | currency:'EUR' }}
+              </div>
+            </div>
+            
+            <div class="modal-details">
+              <div class="detail-item">
+                <div class="detail-icon-container">
+                  <ion-icon name="pricetag-outline" class="detail-icon"></ion-icon>
+                </div>
+                <div class="detail-content">
+                  <span class="detail-label">Prix</span>
+                  <span class="detail-value">{{ selectedProduct.price | currency:'EUR' }}</span>
+                </div>
+              </div>
+              
+              <div class="detail-item">
+                <div class="detail-icon-container">
+                  <ion-icon name="grid-outline" class="detail-icon"></ion-icon>
+                </div>
+                <div class="detail-content">
+                  <span class="detail-label">Catégorie</span>
+                  <span class="detail-value">{{ selectedProduct.category }}</span>
+                </div>
+              </div>
+              
+              <div class="detail-item" *ngIf="selectedProduct.description">
+                <div class="detail-icon-container">
+                  <ion-icon name="document-text-outline" class="detail-icon"></ion-icon>
+                </div>
+                <div class="detail-content">
+                  <span class="detail-label">Description</span>
+                  <span class="detail-value">{{ selectedProduct.description }}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="modal-actions">
+              <ion-button expand="block" color="warning" (click)="editProduct(selectedProduct)" class="modal-action-btn">
+                <ion-icon name="create-outline" slot="start"></ion-icon>
+                Modifier le produit
+              </ion-button>
+              <ion-button expand="block" color="danger" fill="outline" (click)="deleteProduct(selectedProduct)" class="modal-action-btn">
+                <ion-icon name="trash-outline" slot="start"></ion-icon>
+                Supprimer
+              </ion-button>
+            </div>
+          </div>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

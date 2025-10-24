@@ -1,0 +1,242 @@
+/* Toolbar amélioré */
+.edit-toolbar {
+  --background: linear-gradient(135deg, var(--ion-color-primary), #1976d2);
+  
+  .toolbar-title {
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+  
+  .back-button {
+    --color: white;
+    --icon-font-size: 1.2rem;
+  }
+}
+
+/* Contenu */
+.edit-content {
+  --background: #f5f7fa;
+  --padding-top: 16px;
+  --padding-bottom: 16px;
+}
+
+.form-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.edit-form {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* Section Image améliorée */
+.image-section {
+  text-align: center;
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #eef2f7;
+}
+
+.image-preview {
+  width: 160px;
+  height: 160px;
+  margin: 0 auto 20px;
+  border: 2px solid #eef2f7;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  background: #f8f9fa;
+  
+  .preview-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .no-image {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #95a5a6;
+    
+    .no-image-icon {
+      font-size: 48px;
+      margin-bottom: 8px;
+      opacity: 0.5;
+    }
+    
+    .no-image-text {
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+  }
+}
+
+.file-upload-item {
+  --background: transparent;
+  --padding-start: 0;
+  --inner-padding-end: 0;
+  
+  .upload-label {
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 1rem;
+    margin-bottom: 12px;
+  }
+  
+  .file-input {
+    width: 100%;
+    padding: 12px;
+    border: 2px dashed #e0e6ed;
+    border-radius: 8px;
+    background: #f8f9fa;
+    transition: all 0.3s ease;
+    
+    &:focus {
+      border-color: var(--ion-color-primary);
+      background: white;
+    }
+    
+    &:hover {
+      border-color: var(--ion-color-primary);
+      background: #f0f7ff;
+    }
+  }
+}
+
+/* Champs de formulaire améliorés */
+.form-fields {
+  margin-bottom: 24px;
+}
+
+.form-item {
+  --padding-start: 0;
+  --inner-padding-end: 0;
+  --background: transparent;
+  margin-bottom: 20px;
+  
+  .input-label {
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+  }
+  
+  .input-icon {
+    color: var(--ion-color-primary);
+    font-size: 1.2rem;
+    margin-right: 12px;
+    margin-top: 8px;
+  }
+  
+  .textarea-icon {
+    align-self: flex-start;
+    margin-top: 16px;
+  }
+}
+
+.custom-input, .custom-select, .custom-textarea {
+  --padding-start: 16px !important;
+  --padding-end: 16px !important;
+  --padding-top: 12px !important;
+  --padding-bottom: 12px !important;
+  border: 2px solid #eef2f7;
+  border-radius: 8px;
+  background: #f8f9fa;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  
+  &:focus, &.ion-focused {
+    border-color: var(--ion-color-primary);
+    background: white;
+    box-shadow: 0 0 0 3px rgba(var(--ion-color-primary-rgb), 0.1);
+  }
+}
+
+.custom-select {
+  min-height: 48px;
+}
+
+.custom-textarea {
+  min-height: 120px;
+}
+
+/* Bouton amélioré */
+.submit-button {
+  --border-radius: 12px;
+  --padding-top: 16px;
+  --padding-bottom: 16px;
+  height: 56px;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-top: 8px;
+  --box-shadow: 0 4px 16px rgba(var(--ion-color-success-rgb), 0.3);
+  
+  &:hover {
+    --box-shadow: 0 6px 20px rgba(var(--ion-color-success-rgb), 0.4);
+  }
+  
+  ion-icon {
+    font-size: 1.2rem;
+  }
+}
+
+/* États de validation */
+.form-item.ion-invalid {
+  .custom-input, .custom-select, .custom-textarea {
+    border-color: var(--ion-color-danger);
+  }
+}
+
+.form-item.ion-valid {
+  .custom-input, .custom-select, .custom-textarea {
+    border-color: var(--ion-color-success);
+  }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .form-container {
+    padding: 0 12px;
+  }
+  
+  .edit-form {
+    padding: 20px 16px;
+    border-radius: 12px;
+  }
+  
+  .image-preview {
+    width: 140px;
+    height: 140px;
+  }
+  
+  .submit-button {
+    height: 52px;
+    font-size: 0.95rem;
+  }
+}
+
+/* Animation pour les interactions */
+.form-item {
+  transition: transform 0.2s ease;
+  
+  &:focus-within {
+    transform: translateY(-1px);
+  }
+}
+
+.image-preview {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+  &:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  }
+}

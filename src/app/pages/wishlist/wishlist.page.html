@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Wishlist</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card *ngFor="let product of wishlist">
+    <img [src]="product.imageUrl" *ngIf="product.imageUrl">
+    <ion-card-header>
+      <ion-card-title>{{ product.name }}</ion-card-title>
+      <ion-card-subtitle>{{ product.price | currency:'EUR' }}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <p>{{ product.description }}</p>
+      <ion-button color="success" expand="block" (click)="addToCart(product)">
+        Ajouter au panier
+      </ion-button>
+      <ion-button color="danger" expand="block" (click)="removeItem(product)">
+        Retirer
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-item *ngIf="wishlist.length === 0">
+    <ion-label>Aucun produit dans la wishlist.</ion-label>
+  </ion-item>
+</ion-content>

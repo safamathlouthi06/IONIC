@@ -1,0 +1,135 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Inscription</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="register-container">
+    <!-- En-tête visuel -->
+    <div class="header-section">
+      <div class="icon-container">
+        <ion-icon name="person-add-outline" class="header-icon"></ion-icon>
+      </div>
+      <h2>Créer un compte</h2>
+      <p>Rejoignez notre communauté</p>
+    </div>
+
+    <!-- Formulaire d'inscription -->
+    <form [formGroup]="registerForm" (ngSubmit)="register()" class="register-form">
+      <!-- Champ Email -->
+      <ion-item lines="full" class="form-item">
+        <ion-label position="stacked" class="input-label">
+          Email
+          <span class="required">*</span>
+        </ion-label>
+        <ion-input 
+          type="email" 
+          formControlName="email"
+          placeholder="exemple@email.com"
+          class="custom-input">
+        </ion-input>
+        <ion-icon name="mail-outline" slot="start" class="input-icon"></ion-icon>
+      </ion-item>
+
+      <!-- Champ Mot de passe -->
+      <ion-item lines="full" class="form-item">
+        <ion-label position="stacked" class="input-label">
+          Mot de passe
+          <span class="required">*</span>
+        </ion-label>
+        <ion-input 
+          type="password" 
+          formControlName="password"
+          placeholder="Minimum 8 caractères"
+          class="custom-input">
+        </ion-input>
+        <ion-icon name="lock-closed-outline" slot="start" class="input-icon"></ion-icon>
+      </ion-item>
+
+   
+
+      <!-- Sélecteur de rôle -->
+      <ion-item lines="full" class="form-item role-selector">
+        <ion-label position="stacked" class="input-label">
+          Type de compte
+          <span class="required">*</span>
+        </ion-label>
+        <ion-select 
+          formControlName="role" 
+          interface="action-sheet"
+          class="custom-select">
+          <ion-select-option value="client" class="role-option">
+            <div class="option-content">
+              <ion-icon name="person-outline"></ion-icon>
+              <div class="option-text">
+                <div class="option-title">Client</div>
+                <div class="option-description">Acheter des produits et services</div>
+              </div>
+            </div>
+          </ion-select-option>
+          <ion-select-option value="merchant" class="role-option">
+            <div class="option-content">
+              <ion-icon name="storefront-outline"></ion-icon>
+              <div class="option-text">
+                <div class="option-title">Commerçant</div>
+                <div class="option-description">Vendre vos produits et services</div>
+              </div>
+            </div>
+          </ion-select-option>
+        </ion-select>
+        <ion-icon name="chevron-down-outline" slot="end" class="select-icon"></ion-icon>
+      </ion-item>
+
+      <!-- Conditions d'utilisation -->
+      <ion-item lines="none" class="terms-item">
+        <ion-checkbox slot="start" formControlName="terms"></ion-checkbox>
+        <ion-label class="terms-label">
+          J'accepte les 
+          <a href="#" class="link">conditions d'utilisation</a> 
+          et la 
+          <a href="#" class="link">politique de confidentialité</a>
+        </ion-label>
+      </ion-item>
+
+      <!-- Bouton d'inscription -->
+      <ion-button 
+        expand="block" 
+        type="submit" 
+        class="register-button"
+        [disabled]="!registerForm.valid">
+        <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+        Créer mon compte
+      </ion-button>
+    </form>
+
+    <!-- Séparateur -->
+    <div class="separator">
+      <span>Ou</span>
+    </div>
+
+    <!-- Connexion sociale -->
+    <div class="social-register">
+      <ion-button expand="block" fill="outline" class="social-button google-button">
+        <ion-icon slot="start" name="logo-google" class="social-icon"></ion-icon>
+        S'inscrire avec Google
+      </ion-button>
+      
+      <ion-button expand="block" fill="outline" class="social-button facebook-button">
+        <ion-icon slot="start" name="logo-facebook" class="social-icon"></ion-icon>
+        S'inscrire avec Facebook
+      </ion-button>
+    </div>
+
+    <!-- Lien de connexion -->
+    <div class="login-section">
+      <p class="login-text">
+        Déjà inscrit ? 
+        <a routerLink="/login" class="login-link">Se connecter</a>
+      </p>
+    </div>
+  </div>
+</ion-content>

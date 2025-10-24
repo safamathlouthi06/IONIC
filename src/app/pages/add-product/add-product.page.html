@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Ajouter un produit</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="productForm" (ngSubmit)="addProduct()">
+
+    <ion-item>
+      <ion-label position="floating">Nom du produit</ion-label>
+      <ion-input formControlName="name"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Prix</ion-label>
+      <ion-input type="number" formControlName="price"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Catégorie</ion-label>
+      <ion-select formControlName="category">
+        <ion-select-option value="Fruits">Fruits</ion-select-option>
+        <ion-select-option value="Boissons">Boissons</ion-select-option>
+        <ion-select-option value="Électronique">Électronique</ion-select-option>
+        <ion-select-option value="Vêtements">Vêtements</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Description</ion-label>
+      <ion-textarea formControlName="description"></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Image</ion-label>
+      <input type="file" (change)="onFileChange($event)" />
+    </ion-item>
+
+    <ion-button expand="block" type="submit" color="success">Ajouter</ion-button>
+  </form>
+</ion-content>

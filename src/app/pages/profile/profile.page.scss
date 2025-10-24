@@ -1,0 +1,63 @@
+.content-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.loading-spinner {
+  margin: 50px auto;
+}
+
+.profile-card {
+  margin: 16px 0;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+  text-align: center;
+  font-weight: 600;
+}
+
+.card-content {
+  padding: 16px;
+}
+
+.card-content ion-item {
+  --padding-start: 0;
+  --inner-padding-end: 0;
+  margin-bottom: 16px;
+}
+
+.card-content ion-item h3 {
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #333;
+}
+
+.card-content ion-item p {
+  color: #666;
+  margin: 0;
+}
+
+.card-content ion-icon {
+  font-size: 1.4em;
+  margin-right: 12px;
+}
+
+.logout-container {
+  margin-top: auto;
+  padding: 16px 0;
+}
+
+.logout-btn {
+  --border-radius: 10px;
+  --box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+  font-weight: 600;
+  margin: 20px 0;
+}
+
+/* Animation de hover */
+.logout-btn:hover {
+  --box-shadow: 0 6px 12px rgba(220, 53, 69, 0.4);
+}
