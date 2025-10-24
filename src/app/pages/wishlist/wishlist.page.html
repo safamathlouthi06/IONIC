@@ -1,28 +1,62 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>Wishlist</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button default-href="/client-dashboard" color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Mes Favoris</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <ion-card *ngFor="let product of wishlist">
-    <img [src]="product.imageUrl" *ngIf="product.imageUrl">
-    <ion-card-header>
-      <ion-card-title>{{ product.name }}</ion-card-title>
-      <ion-card-subtitle>{{ product.price | currency:'EUR' }}</ion-card-subtitle>
-    </ion-card-header>
-    <ion-card-content>
-      <p>{{ product.description }}</p>
-      <ion-button color="success" expand="block" (click)="addToCart(product)">
-        Ajouter au panier
-      </ion-button>
-      <ion-button color="danger" expand="block" (click)="removeItem(product)">
-        Retirer
-      </ion-button>
-    </ion-card-content>
-  </ion-card>
+<ion-content class="wishlist-content">
+  <!-- En-tête -->
+  @if (wishlist.length > 0) {
+    <div class="wishlist-header">
+      <h2>Vos produits favoris</h2>
+      <p class="item-count">{{ wishlist.length }} produit{{ wishlist.length > 1 ? 's' : '' }}</p>
+    </div>
+  }
 
-  <ion-item *ngIf="wishlist.length === 0">
-    <ion-label>Aucun produit dans la wishlist.</ion-label>
-  </ion-item>
+  <!-- Liste des produits -->
+  <div class="wishlist-items">
+    @for (product of wishlist; track product.id; let i = $index) {
+      <div class="wishlist-item">
+        <div class="product-image">
+          <img [src]="product.imageUrl || 'assets/images/placeholder.jpg'" [alt]="product.name">
+          <button class="remove-favorite-btn" (click)="removeItem(product)" title="Retirer des favoris">
+            ❤️
+          </button>
+        </div>
+        
+        <div class="product-details">
+          <div class="product-info">
+            <h3 class="product-name">{{ product.name }}</h3>
+            <p class="product-category">{{ product.category }}</p>
+            <p class="product-description">{{ product.description }}</p>
+          </div>
+          
+          <div class="product-footer">
+            <span class="product-price">{{ product.price | currency:'EUR' }}</span>
+            
+            <div class="action-buttons">
+              <button class="add-to-cart-btn" (click)="addToCart(product)">
+                Ajouter au panier
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- Wishlist vide -->
+  @if (wishlist.length === 0) {
+    <div class="empty-wishlist">
+      <div class="empty-icon">💝</div>
+      <h3>Aucun favori pour le moment</h3>
+      <p>Ajoutez des produits à votre liste de souhaits</p>
+      <ion-button fill="outline" (click)="continueShopping()">
+        Découvrir les produits
+      </ion-button>
+    </div>
+  }
 </ion-content>

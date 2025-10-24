@@ -1,24 +1,79 @@
 <ion-header>
   <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button default-href="/client-dashboard" color="light"></ion-back-button>
+    </ion-buttons>
     <ion-title>Mon Panier</ion-title>
   </ion-toolbar>
 </ion-header>
+<ion-content class="cart-content">
+  <!-- En-tête du panier -->
+  <div class="cart-header" *ngIf="cart.length > 0">
+    <h2>Votre sélection</h2>
+    <p class="item-count">{{ getTotalItems() }} article{{ getTotalItems() > 1 ? 's' : '' }}</p>
+  </div>
 
-<ion-content class="ion-padding">
-  <ion-card *ngFor="let product of cart">
-    <ion-card-header>
-      <ion-card-title>{{ product.name }}</ion-card-title>
-      <ion-card-subtitle>{{ product.price | currency:'EUR' }}</ion-card-subtitle>
-    </ion-card-header>
-    <ion-card-content>
-      <p>{{ product.description }}</p>
-      <ion-button color="danger" expand="block" (click)="removeItem(product)">
-        Retirer
+  <!-- Liste des produits -->
+  <div class="cart-items">
+    <div *ngFor="let product of cart" class="cart-item">
+      <div class="item-image">
+        <img [src]="product.imageUrl || 'assets/images/placeholder.jpg'" [alt]="product.name">
+      </div>
+      
+      <div class="item-details">
+        <h3 class="item-name">{{ product.name }}</h3>
+        <p class="item-category">{{ product.category }}</p>
+        <p class="item-description">{{ product.description }}</p>
+        
+        <div class="item-footer">
+          <span class="item-price">{{ product.price | currency:'EUR' }}</span>
+          <button class="remove-btn" (click)="removeItem(product)">
+            Supprimer
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Panier vide -->
+  <div *ngIf="cart.length === 0" class="empty-cart">
+    <div class="empty-icon">🛒</div>
+    <h3>Votre panier est vide</h3>
+    <p>Ajoutez des produits pour commencer vos achats</p>
+    <ion-button fill="outline" (click)="continueShopping()">
+      Découvrir les produits
+    </ion-button>
+  </div>
+
+  <!-- Résumé et commande -->
+  <div *ngIf="cart.length > 0" class="cart-summary">
+    <div class="total-section">
+      <div class="total-line">
+        <span>Sous-total ({{ getTotalItems() }} article{{ getTotalItems() > 1 ? 's' : '' }})</span>
+        <span>{{ getSubtotal() | currency:'EUR' }}</span>
+      </div>
+      <div class="total-line">
+        <span>Livraison</span>
+        <span>{{ getShippingCost() === 0 ? 'Gratuite' : (getShippingCost() | currency:'EUR') }}</span>
+      </div>
+      <div class="total-line main-total">
+        <span>Total</span>
+        <span>{{ getTotal() | currency:'EUR' }}</span>
+      </div>
+    </div>
+
+    <div class="action-buttons">
+      <ion-button expand="block" color="danger" fill="outline" (click)="clearCart()">
+        Vider le panier
       </ion-button>
-    </ion-card-content>
-  </ion-card>
-
-  <ion-item *ngIf="cart.length === 0">
-    <ion-label>Aucun produit dans le panier.</ion-label>
-  </ion-item>
+      <ion-button 
+        expand="block" 
+        color="success" 
+        (click)="checkout()" 
+        class="checkout-btn"
+        [disabled]="!canCheckout()">
+        Commander maintenant ({{ getTotal() | currency:'EUR' }})
+      </ion-button>
+    </div>
+  </div>
 </ion-content>

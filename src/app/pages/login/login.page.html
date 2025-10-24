@@ -1,84 +1,120 @@
 <ion-header [translucent]="true">
-  <ion-toolbar color="primary">
+  <ion-toolbar color="primary" class="login-toolbar">
     <ion-title>Connexion</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-padding">
+<ion-content [fullscreen]="true" class="login-content">
   <div class="login-container">
-    <!-- Illustration ou logo -->
-    <div class="logo-section">
-      <div class="logo-circle">
-        <ion-icon name="person-circle-outline"></ion-icon>
+    <!-- Section illustration -->
+    <div class="illustration-section">
+      <div class="welcome-illustration">
+        <span class="welcome-emoji">👋</span>
       </div>
-      <h2>Bienvenue</h2>
-      <p>Connectez-vous à votre compte</p>
+      <div class="welcome-text">
+        <h1 class="welcome-title">Content de vous revoir !</h1>
+        <p class="welcome-subtitle">Connectez-vous pour gérer votre boutique</p>
+      </div>
     </div>
 
     <!-- Formulaire de connexion -->
     <form [formGroup]="loginForm" (ngSubmit)="login()" class="login-form">
       <!-- Champ Email -->
-      <ion-item lines="full" class="form-item">
-        <ion-label position="stacked">Email</ion-label>
-        <ion-input 
-          type="email" 
-          formControlName="email"
-          placeholder="Votre adresse email"
-          class="custom-input">
-        </ion-input>
-        <ion-icon name="mail-outline" slot="start"></ion-icon>
-      </ion-item>
+      <div class="input-group">
+        <div class="input-container">
+          <div class="input-icon">📧</div>
+          <div class="input-field">
+            <label class="input-label">Adresse email</label>
+            <input 
+              type="email" 
+              formControlName="email"
+              placeholder="exemple@email.com"
+              class="custom-input">
+          </div>
+        </div>
+        @if (loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
+          <div class="error-message">
+            Veuillez entrer une adresse email valide
+          </div>
+        }
+      </div>
 
       <!-- Champ Mot de passe -->
-      <ion-item lines="full" class="form-item">
-        <ion-label position="stacked">Mot de passe</ion-label>
-        <ion-input 
-          type="password" 
-          formControlName="password"
-          placeholder="Votre mot de passe"
-          class="custom-input">
-        </ion-input>
-        <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
-      </ion-item>
+      <div class="input-group">
+        <div class="input-container">
+          <div class="input-icon">🔒</div>
+          <div class="input-field">
+            <label class="input-label">Mot de passe</label>
+            <input 
+              type="password" 
+              formControlName="password"
+              placeholder="Votre mot de passe"
+              class="custom-input">
+          </div>
+        </div>
+        @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
+          <div class="error-message">
+            Le mot de passe est requis
+          </div>
+        }
+      </div>
 
       <!-- Lien mot de passe oublié -->
       <div class="forgot-password">
-        <a href="#" class="forgot-link">Mot de passe oublié ?</a>
+        <a href="#" class="forgot-link">🔐 Mot de passe oublié ?</a>
       </div>
 
       <!-- Bouton de connexion -->
-      <ion-button 
-        expand="block" 
+      <button 
         type="submit" 
         class="login-button"
-        [disabled]="!loginForm.valid">
-        Se connecter
-      </ion-button>
+        [class.loading]="isLoading"
+        [disabled]="!loginForm.valid || isLoading">
+        @if (isLoading) {
+          <div class="button-loading">
+            <span class="loading-spinner"></span>
+            Connexion...
+          </div>
+        } @else {
+          <span>🚀 Se connecter</span>
+        }
+      </button>
     </form>
 
     <!-- Séparateur -->
     <div class="separator">
-      <span>Ou</span>
+      <span class="separator-line"></span>
+      <span class="separator-text">Ou continuer avec</span>
+      <span class="separator-line"></span>
     </div>
 
-    <!-- Options de connexion alternatives -->
-    <div class="social-login">
-      <ion-button expand="block" fill="outline" class="google-button">
-        <ion-icon slot="start" name="logo-google"></ion-icon>
-        Continuer avec Google
-      </ion-button>
+    <!-- Connexion rapide -->
+    <div class="quick-login">
+      <button class="quick-button google-button">
+        <span class="quick-icon">🔍</span>
+        <span class="quick-text">Google</span>
+      </button>
       
-      <ion-button expand="block" fill="outline" class="facebook-button">
-        <ion-icon slot="start" name="logo-facebook"></ion-icon>
-        Continuer avec Facebook
-      </ion-button>
+      <button class="quick-button facebook-button">
+        <span class="quick-icon">👥</span>
+        <span class="quick-text">Facebook</span>
+      </button>
     </div>
 
     <!-- Lien d'inscription -->
     <div class="register-section">
-      <p>Pas encore inscrit ? 
-        <a routerLink="/register" class="register-link">Créer un compte</a>
+      <p class="register-text">
+        Nouveau sur MiniMarket ? 
+        <a routerLink="/register" class="register-link">📝 Créer un compte</a>
       </p>
     </div>
+
+    <!-- Message d'erreur -->
+    @if (errorMessage) {
+      <div class="error-banner">
+        <span class="error-icon">⚠️</span>
+        <span class="error-text">{{ errorMessage }}</span>
+      </div>
+    }
   </div>
 </ion-content>

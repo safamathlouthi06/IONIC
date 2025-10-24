@@ -1,136 +1,128 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>DASHBOARD CLIENT</ion-title>
+    <ion-title>MON ESPACE CLIENT</ion-title>
     <ion-buttons slot="end">
-
-        <ion-icon name="notifications-outline" color="light"></ion-icon>
-      
+      <ion-button fill="clear" class="notification-btn">
+        <div class="notification-dot"></div>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding dashboard-content">
-  <!-- Section de bienvenue améliorée -->
+  <!-- Section de bienvenue -->
   <div class="welcome-section">
-    <div class="welcome-header">
-      <ion-avatar class="user-avatar">
-        <ion-icon name="person-circle-outline" color="primary"></ion-icon>
-      </ion-avatar>
+    <div class="welcome-content">
+      <div class="avatar-container">
+        <div class="user-avatar">
+          <div class="avatar-placeholder">👤</div>
+        </div>
+      </div>
       <div class="welcome-text">
-        <h2 class="welcome-title">Bienvenue 👋</h2>
-        <p class="welcome-subtitle">Gérez facilement votre espace client</p>
+        <h1 class="welcome-title">Bonjour !</h1>
+        <p class="welcome-subtitle">Que souhaitez-vous faire aujourd'hui ?</p>
+      </div>
+      <div class="status-indicator">
+        <span class="status-dot"></span>
+        <span class="status-text">En ligne</span>
       </div>
     </div>
-    <ion-badge color="medium" class="status-badge">
-      <ion-icon name="time-outline"></ion-icon>
-      En ligne
-    </ion-badge>
   </div>
 
-  <!-- Menu des cartes amélioré -->
+  <!-- Menu des cartes -->
   <div class="menu-grid">
     <!-- Carte Produits -->
     <ion-card class="menu-card" (click)="goToProducts()">
       <div class="card-content">
-        <div class="card-icon product">
-          <ion-icon name="storefront-outline"></ion-icon>
+        <div class="card-header">
+          <div class="card-icon-wrapper primary">
+            <div class="icon-placeholder">🛍️</div>
+          </div>
+          <ion-card-title>Boutique</ion-card-title>
         </div>
-        <div class="card-text">
-          <ion-card-header>
-            <ion-card-title>Produits</ion-card-title>
-          </ion-card-header>
-          <ion-card-content>
-            <p>Explorer nos produits par catégorie</p>
-            <ion-button fill="clear" size="small" class="action-btn">
-              Voir
-              <ion-icon name="arrow-forward" slot="end"></ion-icon>
-            </ion-button>
-          </ion-card-content>
-        </div>
+        <ion-card-content>
+          <p>Découvrez notre catalogue de produits</p>
+          <div class="card-action">
+            <span class="action-text">Explorer</span>
+            <div class="arrow-icon">→</div>
+          </div>
+        </ion-card-content>
       </div>
     </ion-card>
 
     <!-- Carte Panier -->
     <ion-card class="menu-card" (click)="goToCart()">
       <div class="card-content">
-        <div class="card-icon cart">
-          <ion-icon name="cart-outline"></ion-icon>
+        <div class="card-header">
+          <div class="card-icon-wrapper success">
+            <div class="icon-placeholder">🛒</div>
+          </div>
+          <ion-card-title>Panier</ion-card-title>
         </div>
-        <div class="card-text">
-          <ion-card-header>
-            <ion-card-title>Mon Panier</ion-card-title>
-          </ion-card-header>
-          <ion-card-content>
-            <p>Voir et gérer vos achats</p>
-            <ion-button fill="clear" size="small" class="action-btn">
-              Voir
-              <ion-icon name="arrow-forward" slot="end"></ion-icon>
-            </ion-button>
-          </ion-card-content>
-        </div>
+        <ion-card-content>
+          <p>Consultez vos articles sélectionnés</p>
+          <div class="card-action">
+            <span class="action-text">Vérifier</span>
+            <div class="arrow-icon">→</div>
+          </div>
+        </ion-card-content>
       </div>
     </ion-card>
 
     <!-- Carte Wishlist -->
     <ion-card class="menu-card" (click)="goToWishlist()">
       <div class="card-content">
-        <div class="card-icon wishlist">
-          <ion-icon name="heart-outline"></ion-icon>
+        <div class="card-header">
+          <div class="card-icon-wrapper danger">
+            <div class="icon-placeholder">❤️</div>
+          </div>
+          <ion-card-title>Favoris</ion-card-title>
         </div>
-        <div class="card-text">
-          <ion-card-header>
-            <ion-card-title>Wishlist</ion-card-title>
-          </ion-card-header>
-          <ion-card-content>
-            <p>Vos produits préférés</p>
-            <ion-button fill="clear" size="small" class="action-btn">
-              Voir
-              <ion-icon name="arrow-forward" slot="end"></ion-icon>
-            </ion-button>
-          </ion-card-content>
-        </div>
+        <ion-card-content>
+          <p>Retrouvez vos produits préférés</p>
+          <div class="card-action">
+            <span class="action-text">Consulter</span>
+            <div class="arrow-icon">→</div>
+          </div>
+        </ion-card-content>
       </div>
     </ion-card>
 
     <!-- Carte Profil -->
     <ion-card class="menu-card" (click)="goToProfile()">
       <div class="card-content">
-        <div class="card-icon profile">
-          <ion-icon name="person-outline"></ion-icon>
+        <div class="card-header">
+          <div class="card-icon-wrapper warning">
+            <div class="icon-placeholder">👨‍💼</div>
+          </div>
+          <ion-card-title>Profil</ion-card-title>
         </div>
-        <div class="card-text">
-          <ion-card-header>
-            <ion-card-title>Mon Profil</ion-card-title>
-          </ion-card-header>
-          <ion-card-content>
-            <p>Gérer mes informations personnelles</p>
-            <ion-button fill="clear" size="small" class="action-btn">
-              Voir
-              <ion-icon name="arrow-forward" slot="end"></ion-icon>
-            </ion-button>
-          </ion-card-content>
-        </div>
+        <ion-card-content>
+          <p>Gérez vos informations personnelles</p>
+          <div class="card-action">
+            <span class="action-text">Modifier</span>
+            <div class="arrow-icon">→</div>
+          </div>
+        </ion-card-content>
       </div>
     </ion-card>
 
     <!-- Carte Déconnexion -->
-    <ion-card class="menu-card logout" (click)="logout()">
+    <ion-card class="menu-card logout-card" (click)="logout()">
       <div class="card-content">
-        <div class="card-icon logout">
-          <ion-icon name="log-out-outline"></ion-icon>
+        <div class="card-header">
+          <div class="card-icon-wrapper medium">
+            <div class="icon-placeholder">🚪</div>
+          </div>
+          <ion-card-title>Déconnexion</ion-card-title>
         </div>
-        <div class="card-text">
-          <ion-card-header>
-            <ion-card-title>Déconnexion</ion-card-title>
-          </ion-card-header>
-          <ion-card-content>
-            <p>Quitter votre session</p>
-            <ion-button fill="clear" size="small" color="danger" class="action-btn">
-              Se déconnecter
-              <ion-icon name="log-out-outline" slot="end"></ion-icon>
-            </ion-button>
-          </ion-card-content>
-        </div>
+        <ion-card-content>
+          <p>Fermer votre session sécurisée</p>
+          <div class="card-action">
+            <span class="action-text logout-text">Se déconnecter</span>
+            <div class="arrow-icon">→</div>
+          </div>
+        </ion-card-content>
       </div>
     </ion-card>
   </div>

@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { HomePage } from './pages/home/home.page';
+
 import { ProductsPage } from './pages/products/products.page';
 import { AddProductPage } from './pages/add-product/add-product.page';
 import { RegisterPage } from './pages/register/register.page';
@@ -13,7 +13,6 @@ import { EditProductPage } from './pages/edit-product/edit-product.page';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'home', component: HomePage },
   { path: 'products', component: ProductsPage },
   { path: 'add-product', component: AddProductPage },
   { path: 'register', component: RegisterPage },

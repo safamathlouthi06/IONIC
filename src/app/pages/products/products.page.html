@@ -1,61 +1,78 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>Produits</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button default-href="/client-dashboard" color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Nos Produits</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="products-content">
-  <!-- Catégories style moderne -->
-  <div class="categories-container">
+  <!-- Filtres par catégorie -->
+  <div class="categories-section">
     <div class="categories-scroll">
       <div 
         class="category-tab"
         [class.active]="selectedCategory === 'All'"
         (click)="selectedCategory = 'All'">
-        <span>Tous</span>
+        <span class="category-text">Tous</span>
       </div>
       
-      <div 
-        *ngFor="let cat of categories"
-        class="category-tab"
-        [class.active]="selectedCategory === cat"
-        (click)="selectedCategory = cat">
-        <span>{{ cat }}</span>
-      </div>
+      @for (cat of categories; track cat) {
+        <div 
+          class="category-tab"
+          [class.active]="selectedCategory === cat"
+          (click)="selectedCategory = cat">
+          <span class="category-text">{{ cat }}</span>
+        </div>
+      }
     </div>
   </div>
 
-  <!-- Produits avec les deux boutons -->
+  <!-- Grille des produits -->
   <div class="products-grid">
-    <div *ngFor="let product of filterProducts()" class="product-item">
-      <div class="product-image-container">
-        <img [src]="product.imageUrl" *ngIf="product.imageUrl" class="product-image">
-        <div class="product-overlay">
-          <ion-button fill="clear" color="light" (click)="addToWishlist(product)" class="wishlist-btn">
-            <ion-icon name="heart-outline"></ion-icon>
-          </ion-button>
+    @for (product of filterProducts(); track product.id) {
+      <div class="product-card">
+        <!-- Image du produit -->
+        <div class="product-image-section">
+          <img 
+            [src]="product.imageUrl || 'assets/images/placeholder.jpg'" 
+          
+            class="product-image"
+            >
+          <div class="product-badge">{{ product.category }}</div>
+          <button class="wishlist-btn" (click)="addToWishlist(product)" title="Ajouter aux favoris">
+            ♡
+          </button>
         </div>
-      </div>
-      
-      <div class="product-info">
-        <h3 class="product-name">{{ product.name }}</h3>
-        <p class="product-description">{{ product.description }}</p>
         
-        <div class="product-price-section">
-          <span class="product-price">{{ product.price | currency:'EUR' }}</span>
-        </div>
-
-        <div class="actions-container">
-          <ion-button expand="block" color="success" (click)="addToCart(product)" class="action-button">
-            <ion-icon name="cart" slot="start"></ion-icon>
-           Ajouter Panier
-          </ion-button>
-          <ion-button expand="block" color="warning" (click)="addToWishlist(product)" class="action-button">
-            <ion-icon name="heart" slot="start"></ion-icon>
-            Ajouter Wishlist
-          </ion-button>
+        <!-- Informations du produit -->
+        <div class="product-details">
+          <div class="product-header">
+            <h3 class="product-name">{{ product.name }}</h3>
+            <p class="product-description">{{ product.description }}</p>
+          </div>
+          
+          <div class="product-footer">
+            <span class="product-price">{{ product.price | currency:'EUR' }}</span>
+            
+            <div class="action-buttons">
+              <button class="cart-btn" (click)="addToCart(product)">
+                Ajouter
+              </button>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    }
   </div>
+
+  <!-- Aucun produit -->
+  @if (filterProducts().length === 0) {
+    <div class="no-products">
+      <div class="no-products-icon">📦</div>
+      <h3>Aucun produit trouvé</h3>
+      <p>Aucun produit ne correspond à cette catégorie</p>
+    </div>
+  }
 </ion-content>

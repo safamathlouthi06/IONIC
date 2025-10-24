@@ -1,52 +1,86 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <!-- Bouton retour -->
     <ion-buttons slot="start">
       <ion-back-button default-href="/client-dashboard" color="light"></ion-back-button>
     </ion-buttons>
-
     <ion-title>Mon Profil</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <div class="content-container">
-    <ion-spinner *ngIf="isLoading" name="dots" class="loading-spinner"></ion-spinner>
+<ion-content class="profile-content">
+  <!-- Section en-tête avec avatar -->
+  <div class="profile-header">
+    <div class="avatar-container">
+      <div class="user-avatar">
+        <div class="avatar-placeholder">👤</div>
+      </div>
+    </div>
+    <div class="user-info">
+      <h1 class="user-name">{{ user?.email?.split('@') }}</h1>
+      <p class="user-status">Compte actif</p>
+    </div>
+  </div>
 
-    <ion-card *ngIf="!isLoading && user" class="profile-card">
-      <ion-card-header>
-        <ion-card-title class="card-title">Informations du compte</ion-card-title>
-      </ion-card-header>
-      <ion-card-content class="card-content">
-        <ion-item lines="none">
-          <ion-icon name="mail-outline" slot="start" color="primary"></ion-icon>
-          <ion-label>
-            <h3>Email</h3>
-            <p>{{ user.email }}</p>
-          </ion-label>
-        </ion-item>
-        
-        <ion-item lines="none">
-          <ion-icon name="person-outline" slot="start" color="primary"></ion-icon>
-          <ion-label>
-            <h3>Rôle</h3>
-            <p>{{ user.role }}</p>
-          </ion-label>
-        </ion-item>
+  <!-- Section informations -->
+  <div class="info-section">
+    <h2 class="section-title">Informations du compte</h2>
+    
+    <ion-card class="info-card">
+      <ion-card-content>
+        <!-- Email -->
+        <div class="info-item">
+          <div class="info-icon">
+            <div class="icon-placeholder">📧</div>
+          </div>
+          <div class="info-content">
+            <label class="info-label">Adresse email</label>
+            <p class="info-value">{{ user?.email }}</p>
+          </div>
+        </div>
+
+        <!-- Rôle -->
+        <div class="info-item">
+          <div class="info-icon">
+            <div class="icon-placeholder">🔑</div>
+          </div>
+          <div class="info-content">
+            <label class="info-label">Type de compte</label>
+            <p class="info-value">{{ user?.role }}</p>
+          </div>
+        </div>
+
+        <!-- Statut -->
+        <div class="info-item">
+          <div class="info-icon">
+            <div class="icon-placeholder">✅</div>
+          </div>
+          <div class="info-content">
+            <label class="info-label">Statut</label>
+            <p class="info-value">Vérifié</p>
+          </div>
+        </div>
       </ion-card-content>
     </ion-card>
+  </div>
 
-    <!-- Bouton déconnexion -->
-    <div class="logout-container">
-      <ion-button 
-        expand="block" 
-        color="danger" 
-        (click)="logout()" 
-        class="logout-btn"
-        size="large">
-        <ion-icon name="log-out-outline" slot="start"></ion-icon>
-        Se déconnecter
-      </ion-button>
+  <!-- Bouton déconnexion -->
+  <div class="action-section">
+    <ion-button 
+      expand="block" 
+      fill="outline" 
+      color="danger" 
+      (click)="logout()" 
+      class="logout-btn">
+      <div class="button-icon">🚪</div>
+      Se déconnecter
+    </ion-button>
+  </div>
+
+  <!-- Loading overlay -->
+  <div *ngIf="isLoading" class="loading-overlay">
+    <div class="loading-content">
+      <ion-spinner name="crescent" color="primary"></ion-spinner>
+      <p>Chargement...</p>
     </div>
   </div>
 </ion-content>
